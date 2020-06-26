@@ -13,7 +13,6 @@ namespace HTMLControlEvents
 {
     public enum EventType
     {
-
         onkeydown,
         onclick,
         ondblclick,
@@ -32,6 +31,7 @@ namespace HTMLControlEvents
         oncopy,
         oncut,
         ondrag,
+        ondragstart,
         ondragend,
         ondragenter,
         ondragleave,
@@ -58,36 +58,44 @@ namespace HTMLControlEvents
         onfocusin,
         onfocusout,
         onmousewheel,
+        onbeforeeditfocus
 
             // { "onafterupdate" }
             // { "onbeforeupdate" }
             // { "ondataavailable" }
             // { "ondatasetchanged" }
             // { "ondatasetcomplete" }
-            // { "ondblclick" }
-            // { "ondragstart" }
             // { "onerrorupdate" }
             // { "onfilterchange" }
             // { "onhelp" }
             // { "onrowenter" }
             // { "onrowexit" }
-            // { "onbeforeeditfocus" }
             // { "onlayoutcomplete" }
             // { "onblur" () => BlurHandler() },
-
             // { "onrowsdelete" }
             // { "onrowsinserted" }
             // { "onlayoutcomplete" }
 
     }
 
-    public class HTMLDocEvent
+    public class EventInitOptions
     {
+        /// <summary>
+        /// Type of event
+        /// </summary>
         public EventType Type { get; set; }
+
+        /// <summary>
+        /// Filter the event to certain controls
+        /// </summary>
         public Func<IControl, bool> ControlSelector { get; set; }
+
+        /// <summary>
+        /// Filter the event to certain HTMLElements
+        /// </summary>
         public Func<IHTMLElement2, bool> IHTMLElementSelector { get; set; }
 
-        public HTMLDocEvent(EventType @event, Func<IControl, bool> controlSelector = null, Func<IHTMLElement2, bool> elementSelector = null)
+        public EventInitOptions(EventType @event, Func<IControl, bool> controlSelector = null, Func<IHTMLElement2, bool> elementSelector = null)
         {
             this.Type = @event;
             this.ControlSelector = controlSelector;
@@ -97,57 +105,57 @@ namespace HTMLControlEvents
 
     public partial class HTMLControlEvents
     {
-
-        public event EventHandler<HTMLControlEventArgs> OnKeyDownEvent;
-        public event EventHandler<HTMLControlEventArgs> OnClickEvent;
-        public event EventHandler<HTMLControlEventArgs> OnFocusedEvent;
-        public event EventHandler<HTMLControlEventArgs> OnMouseOverEvent;
-        public event EventHandler<HTMLControlEventArgs> OnKeyPressEvent;
-        public event EventHandler<HTMLControlEventArgs> OnKeyUpEvent;
-        public event EventHandler<HTMLControlEventArgs> OnMouseDownEvent;
-        public event EventHandler<HTMLControlEventArgs> OnMouseMoveEvent;
-        public event EventHandler<HTMLControlEventArgs> OnMouseOutEvent;
-        public event EventHandler<HTMLControlEventArgs> OnMouseUpEvent;
-        public event EventHandler<HTMLControlEventArgs> OnSelectStartEvent;
-        public event EventHandler<HTMLControlEventArgs> OnBeforeCopyEvent;
-        public event EventHandler<HTMLControlEventArgs> OnBeforeCutEvent;
-        public event EventHandler<HTMLControlEventArgs> OnBeforePasteEvent;
-        public event EventHandler<HTMLControlEventArgs> OnContextMenuEvent;
-        public event EventHandler<HTMLControlEventArgs> OnCopyEvent;
-        public event EventHandler<HTMLControlEventArgs> OnCutEvent;
-        public event EventHandler<HTMLControlEventArgs> OnDragEvent;
-        public event EventHandler<HTMLControlEventArgs> OnDragEnterEvent;
-        public event EventHandler<HTMLControlEventArgs> OnDragEndEvent;
-        public event EventHandler<HTMLControlEventArgs> OnDragLeaveEvent;
-        public event EventHandler<HTMLControlEventArgs> OnDragOverEvent;
-        public event EventHandler<HTMLControlEventArgs> OnDropEvent;
-        public event EventHandler<HTMLControlEventArgs> OnFocusEvent;
-        public event EventHandler<HTMLControlEventArgs> OnLoseCaptureEvent;
-        public event EventHandler<HTMLControlEventArgs> OnPasteEvent;
-        public event EventHandler<HTMLControlEventArgs> OnPropertyStateChangeEvent;
-        public event EventHandler<HTMLControlEventArgs> OnReadyStateChangeEvent;
-        public event EventHandler<HTMLControlEventArgs> OnResizeEvent;
-        public event EventHandler<HTMLControlEventArgs> OnActivateEvent;
-        public event EventHandler<HTMLControlEventArgs> OnBeforeDeactivateEvent;
-        public event EventHandler<HTMLControlEventArgs> OnControlSelectEvent;
-        public event EventHandler<HTMLControlEventArgs> OnDeactivateEvent;
-        public event EventHandler<HTMLControlEventArgs> OnMouseEnterEvent;
-        public event EventHandler<HTMLControlEventArgs> OnMouseLeaveEvent;
-        public event EventHandler<HTMLControlEventArgs> OnMoveEvent;
-        public event EventHandler<HTMLControlEventArgs> OnMoveEndEvent;
-        public event EventHandler<HTMLControlEventArgs> OnMoveStartEvent;
-        public event EventHandler<HTMLControlEventArgs> OnPageEvent;
-        public event EventHandler<HTMLControlEventArgs> OnResizeEndEvent;
-        public event EventHandler<HTMLControlEventArgs> OnResizeStartEvent;
-        public event EventHandler<HTMLControlEventArgs> OnFocusInEvent;
-        public event EventHandler<HTMLControlEventArgs> OnFocusOutEvent;
-        public event EventHandler<HTMLControlEventArgs> OnMouseWheelEvent;
-
+        public event EventHandler<IHTMLControlEventArgs> OnKeyDownEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnClickEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnFocusedEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnMouseOverEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnKeyPressEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnKeyUpEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnMouseDownEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnMouseMoveEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnMouseOutEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnMouseUpEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnSelectStartEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnBeforeCopyEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnBeforeCutEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnBeforePasteEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnContextMenuEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnCopyEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnCutEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnDragEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnDragStart;
+        public event EventHandler<IHTMLControlEventArgs> OnDragEnterEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnDragEndEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnDragLeaveEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnDragOverEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnDropEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnFocusEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnLoseCaptureEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnPasteEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnPropertyStateChangeEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnReadyStateChangeEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnResizeEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnActivateEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnBeforeDeactivateEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnControlSelectEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnDeactivateEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnMouseEnterEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnMouseLeaveEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnMoveEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnMoveEndEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnMoveStartEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnPageEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnResizeEndEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnResizeStartEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnFocusInEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnFocusOutEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnMouseWheelEvent;
+        public event EventHandler<IHTMLControlEventArgs> OnBeforeEditFocus;
     }
 
     public partial class HTMLControlEvents
     {
-        private Dictionary<EventType, EventHandler<HTMLControlEventArgs>> EventMap => new Dictionary<EventType, EventHandler<HTMLControlEventArgs>>
+        private Dictionary<EventType, EventHandler<IHTMLControlEventArgs>> EventMap => new Dictionary<EventType, EventHandler<IHTMLControlEventArgs>>
         {
             { EventType.onkeydown,              OnKeyDownEvent },
             { EventType.onclick,                OnClickEvent },
@@ -191,14 +199,19 @@ namespace HTMLControlEvents
             { EventType.onresizestart,          OnResizeStartEvent },
             { EventType.onfocusin,              OnFocusInEvent },
             { EventType.onfocusout,             OnFocusOutEvent },
-            { EventType.onmousewheel,           OnMouseWheelEvent }
+            { EventType.onmousewheel,           OnMouseWheelEvent },
+            { EventType.ondragstart,            OnDragStart},
+            { EventType.onbeforeeditfocus,      OnBeforeEditFocus},
         };
+    }
 
-        public List<HTMLDocEvent> Events { get; set; }
+    public partial class HTMLControlEvents
+    {
+        public List<EventInitOptions> ToSubscribeTo { get; set; }
 
-        public HTMLControlEvents(List<HTMLDocEvent> events)
+        public HTMLControlEvents(List<EventInitOptions> events)
         {
-            this.Events = events;
+            this.ToSubscribeTo = events;
             Svc.SM.UI.ElementWdw.OnElementChanged += new ActionProxy<SMDisplayedElementChangedArgs>(OnElementChanged);
         }
 
@@ -209,7 +222,7 @@ namespace HTMLControlEvents
 
         private void SubscribeToHtmlDocEvents()
         {
-            if (Events == null || Events.Count == 0)
+            if (ToSubscribeTo == null || ToSubscribeTo.Count == 0)
                 return;
 
             var ctrlGroup = Svc.SM.UI.ElementWdw.ControlGroup;
@@ -220,22 +233,44 @@ namespace HTMLControlEvents
             {
                 var htmlCtrl = ctrlGroup[i]?.AsHtml();
                 var htmlDoc = htmlCtrl?.GetDocument();
-                var body = htmlDoc?.body;
-                if (body == null)
+                var all = htmlDoc?.all;
+                if (all == null || all.length == 0)
                     continue;
 
-                foreach (var htmlDocEvent in Events)
+                foreach (IHTMLElement2 node in all)
                 {
-                    try
+                    foreach (var htmlDocEvent in ToSubscribeTo)
                     {
-                        var type = htmlDocEvent.Type;
-                        if (EventMap.TryGetValue(type, out var normalEvent))
+
+                        var elementSelector = htmlDocEvent.IHTMLElementSelector;
+                        var controlSelector = htmlDocEvent.ControlSelector;
+
+                        if (elementSelector != null && !elementSelector(node))
+                            continue;
+
+                        if (controlSelector != null && !controlSelector(htmlCtrl))
+                            continue;
+
+                        EventType type = htmlDocEvent.Type;
+                        if (!EventMap.TryGetValue(type, out var csharpEvent))
                         {
-                            var comEventObj = new GenericHtmlDocEventHandler(normalEvent);
-                            ((IHTMLElement2)body).attachEvent(nameof(type), comEventObj);
+                            // LogTo.Error
+                            continue;
+                        }
+
+                        string eventName = htmlDocEvent.Type.Name();
+                        var comEventObj = new GenericHtmlDocEventHandler(csharpEvent, i);
+
+                        try
+                        {
+                            node.attachEvent(eventName, comEventObj);
+                        }
+                        catch (Exception)
+                        {
+                            // Log
+                            // Occasionally there is an access denied error.
                         }
                     }
-                    catch (Exception) { }
                 }
             }
         }
@@ -244,14 +279,15 @@ namespace HTMLControlEvents
 
     [ComVisible(true)]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
-    public class GenericHtmlDocEventHandler : HTMLControlEvent
+    public class GenericHtmlDocEventHandler : IHTMLControlEvent
     {
-        public int HTMLControlIdx { get; }
-        public EventHandler<HTMLControlEventArgs> EventHandler { get; }
+        public int ControlIdx { get; }
+        public EventHandler<IHTMLControlEventArgs> EventHandler { get; }
 
-        public GenericHtmlDocEventHandler(EventHandler<HTMLControlEventArgs> eventHandler)
+        public GenericHtmlDocEventHandler(EventHandler<IHTMLControlEventArgs> eventHandler, int ControlIdx)
         {
             this.EventHandler = eventHandler;
+            this.ControlIdx = ControlIdx;
         }
 
         [DispId(0)]
@@ -259,26 +295,27 @@ namespace HTMLControlEvents
         {
             if (EventHandler != null)
             {
-                var args = new HTMLControlEventArgs(e, HTMLControlIdx);
+                var args = new IHTMLControlEventArgs(e, ControlIdx);
                 EventHandler(this, args);
             }
         }
     }
 
-    public interface HTMLControlEvent
+    public interface IHTMLControlEvent
     {
-        int HTMLControlIdx { get; }
+        int ControlIdx { get; }
         void handler(IHTMLEventObj e);
+        EventHandler<IHTMLControlEventArgs> EventHandler { get; }
     }
 
-    public class HTMLControlEventArgs : RoutedEventArgs
+    public class IHTMLControlEventArgs : RoutedEventArgs
     {
         public IHTMLEventObj EventObj { get; set; }
-        public int HTMLControlIdx { get; set; }
-        public HTMLControlEventArgs(IHTMLEventObj EventObj, int HTMLControlIdx)
+        public int ControlIdx { get; set; }
+        public IHTMLControlEventArgs(IHTMLEventObj EventObj, int ControlIdx)
         {
             this.EventObj = EventObj;
-            this.HTMLControlIdx = HTMLControlIdx;
+            this.ControlIdx = ControlIdx;
         }
     }
 
