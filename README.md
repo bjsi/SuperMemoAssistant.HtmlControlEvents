@@ -12,8 +12,7 @@
 - Status: Works. 
 	+ Event fires when you press the keyboard while the HTMLControl is focused in edit mode.
 	+ You can cancel sending the input to the IHTMLControl by setting the returnValue property of the IHTMLEventObj to false.
-- Tasks:
-	+ [ ] Test whether the event can be restricted to a certain area of the active IHTMLControl, eg. the references.
+	+ Failed to restrict keypress / keydown / keyup to a single span.
 
 ### `onclick`
 - Status: Mostly working
