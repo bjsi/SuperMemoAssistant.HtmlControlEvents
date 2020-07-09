@@ -25,8 +25,7 @@
 ### `onmouseover`
 - Status: Working
 	+ The event gets fired even if the HTMLControl isn't focused in edit mode.
-- Tasks:
-	+ [ ] Check whether it can be restricted to certain elements and areas of the HTMLControl.
+	+ This can be restricted to certain parts of the DOM (See MouseoverHints for an example)
 
 ### `onkeypress`
 - Status: Working
