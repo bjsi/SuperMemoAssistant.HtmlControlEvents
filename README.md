@@ -6,6 +6,9 @@
 - All SuperMemo HTML element tag names are in caps
 - Stuff added to the references section gets deleted on element change.
 	+ Could use the area under the references to place buttons / other elements you don't want to persist.
+- Wrap event related code in a try-catch block that catches this error that occasionly gets thrown:
+
+	`Unhandled Exception: System.UnauthorizedAccessException: Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED)) at mshtml.HTMLBodyClass.IHTMLElement2_attachEvent(String event, Object pdisp)`
 
 ## Events
 ### `onkeydown`
