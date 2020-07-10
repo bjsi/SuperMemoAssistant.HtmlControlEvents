@@ -35,7 +35,7 @@
 	+ Doesn't capture backspace
 
 ### `onkeyup`
-- TODO
+- Status: Working
 
 ### `onmousedown`
 - Status: Working
