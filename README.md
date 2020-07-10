@@ -9,6 +9,17 @@
 - Wrap event related code in a try-catch block that catches this error that occasionly gets thrown:
 
 	`Unhandled Exception: System.UnauthorizedAccessException: Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED)) at mshtml.HTMLBodyClass.IHTMLElement2_attachEvent(String event, Object pdisp)`
+	
+- If you want access to an IHTMLDocument object's parentWindow, you must access it via the dispatcher, otherwise you get an exception:
+
+```cs
+     
+      Application.Current.Dispatcher.Invoke(() =>
+      {
+        var window = htmlDoc.parentWindow;
+        // your code here
+      });
+ ```
 
 ## Events
 ### `onkeydown`
